@@ -7,7 +7,7 @@ class GoogleMap extends Component {
     }
 
     componentDidMount() {
-        const ApiKey = 'AIzaSyAEPrt7HQliWl1YkdstUsF7rBqs94J2axc';
+        const ApiKey = 'INSERT KEY';
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${ApiKey}&v=13`;
         script.async = true;
