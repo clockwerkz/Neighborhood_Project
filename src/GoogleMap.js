@@ -28,7 +28,6 @@ class GoogleMap extends Component {
         }
     }
 
-
     render() {
         return (
             <div id="map"></div>
