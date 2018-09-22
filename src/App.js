@@ -3,19 +3,28 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  
+  componentDidMount() {
+    window.initMap = this.initMap;
+    loadJS('https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap');
+  }
+
+  initMap() {
+    map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.map));
+  }
+  
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div ref="map" style={{height: '100vh', width: '100%', background: '#444'}}></div>
       </div>
     );
   }
 }
 
+function loadJS(src) {
+  let ref = window.document
+}
+
 export default App;
+
