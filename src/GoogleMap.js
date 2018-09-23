@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ApiKey from './js/ApiKey';
 
 
 class GoogleMap extends Component {
@@ -7,7 +8,6 @@ class GoogleMap extends Component {
     }
 
     componentDidMount() {
-        const ApiKey = 'INSERT KEY';
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${ApiKey}&v=13`;
         script.async = true;

@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 
+/src/js/ApiKey.js
+
 # testing
 /coverage
 
