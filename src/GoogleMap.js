@@ -6,16 +6,12 @@ import {GoogleApiWrapper} from 'google-maps-react';
 
 class GoogleMap extends Component {
    
-    style = {
-        width: '100vw',
-        height: '100vh'
-      }
     render() {
         if (!this.props.loaded) {
             return <div>Loading...</div>
         }
         return (
-            <div style={this.style}>
+            <div>
                 <Map google={this.props.google}
                 />
             </div>
