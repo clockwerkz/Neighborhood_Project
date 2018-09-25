@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 class Map extends Component {
     style = {
@@ -7,9 +8,19 @@ class Map extends Component {
         height: '100vh'
       }
 
+      state = {
+          currentLocation: {
+              lat : this.props.initialCenter.lat,
+              lng : this.props.initialCenter.lng
+          }
+      }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.google !== this.props.google) {
             this.loadMap();
+        }
+        if (prevState.currentLocation !== this.state.currentLocation) {
+            this.recenterMap();
         }
     }
 
@@ -21,27 +32,67 @@ class Map extends Component {
         if (this.props && this.props.google) {
             const { google } = this.props;
             const maps = google.maps;
-
+            const zoom = this.props.zoom;
             const mapRef = this.refs.map;
             const node = ReactDOM.findDOMNode(mapRef);
-            let zoom = 14;
-            let lat = 25.7617;
-            let lng = -80.1918;
+            let {lat, lng} = this.state.currentLocation;
             const center = new maps.LatLng(lat, lng);
             const mapConfig = {
                 center: center,
                 zoom: zoom
                 }
             this.map = new maps.Map(node, mapConfig);
+            this.forceUpdate();
         }
+    }
+
+    recenterMap() {
+        const map = this.map;
+        const curr = this.state.currentLocation;
+
+        const google = this.props.google;
+        const maps = google.maps;
+
+        if (map) {
+            let center = new maps.LatLng(curr.lat, curr.lng)
+            map.panTo(center);
+        }
+    }
+
+    renderChildren() {
+        const {children} = this.props;
+        if (!children) return;
+
+        return React.Children.map(children, c => {
+            return React.cloneElement(c, {
+                map: this.map,
+                google: this.props.google,
+                mapCenter : this.state.currentLocation
+            });
+        })
     }
 
     render() {
         return (
             <div  style={this.style} ref='map'>
                 Loading map...
+                {this.renderChildren()}
             </div>
         )
+    }
+}
+
+Map.propTypes = {
+    google: PropTypes.object,
+    zoom: PropTypes.number,
+    initialCenter : PropTypes.object
+}
+Map.defaultProps = {
+    zoom : 13,
+    //Miami, Florida
+    initialCenter: {
+        lat : 25.7617,
+        lng : -80.1918
     }
 }
 
