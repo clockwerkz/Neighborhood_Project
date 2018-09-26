@@ -16,10 +16,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <GoogleMap locations = {this.state.locations.filter(locale => {
-          if (locale.name.toLowerCase().includes(this.state.searchString)) {
-            console.log(locale.position);
-            return locale.position
+        <GoogleMap venues = {this.state.locations.filter(venue => {
+          if (venue.name.toLowerCase().includes(this.state.searchString)) {
+            return venue;
           }
         })}/>
       </div>

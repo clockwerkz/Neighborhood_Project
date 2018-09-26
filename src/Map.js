@@ -42,6 +42,17 @@ class Map extends Component {
                 zoom: zoom
                 }
             this.map = new maps.Map(node, mapConfig);
+            let centerChangedTimeout;
+            this.map.addListener('draggend', (evt) => {
+                console.log('movevd');
+                if (centerChangedTimeout){
+                    clearTimeout(centerChangedTimeout);
+                    centerChangedTimeout = null;
+                }
+                centerChangedTimeout = setTimeout(() =>{
+                    this.props.onMove(this.map);
+                });
+            });
             this.forceUpdate();
         }
     }
@@ -85,7 +96,8 @@ class Map extends Component {
 Map.propTypes = {
     google: PropTypes.object,
     zoom: PropTypes.number,
-    initialCenter : PropTypes.object
+    initialCenter : PropTypes.object,
+    onMove: PropTypes.func
 }
 Map.defaultProps = {
     zoom : 13,
