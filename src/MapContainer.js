@@ -26,31 +26,33 @@ export class MapContainer extends Component {
 
     render() {
         return (
-            <Map google={this.props.google} 
-                    initialCenter={{
-                        lat : 25.7617,
-                        lng : -80.1918 
-                    }}
-                    onClick={this.onMapClicked}
-                    zoom={13}>
-                {this.props.venues.map((venue, index) => {
-                    return <Marker 
-                    key={index}
-                    onClick={this.onMarkerClick}
-                    name={venue.name}
-                    position={venue.position}
-                    animation={(this.props.selectedVenue === venue.name ?  this.props.google.maps.Animation.BOUNCE : null)}
-                    />
-                })}
-                <InfoWindow 
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onInfoWindowClose}>
-                    <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
-                </InfoWindow>
-            </Map>
+            <div className="map-container">
+                <Map google={this.props.google} 
+                        initialCenter={{
+                            lat : 25.7617,
+                            lng : -80.1918 
+                        }}
+                        onClick={this.onMapClicked}
+                        zoom={13}>
+                    {this.props.venues.map((venue, index) => {
+                        return <Marker 
+                        key={index}
+                        onClick={this.onMarkerClick}
+                        name={venue.name}
+                        position={venue.position}
+                        animation={(this.props.selectedVenue === venue.name ?  this.props.google.maps.Animation.BOUNCE : null)}
+                        />
+                    })}
+                    <InfoWindow 
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}
+                        onClose={this.onInfoWindowClose}>
+                        <div>
+                            <h1>{this.state.selectedPlace.name}</h1>
+                        </div>
+                    </InfoWindow>
+                </Map>
+            </div>
         )
     }
 }

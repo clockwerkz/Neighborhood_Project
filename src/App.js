@@ -13,8 +13,8 @@ class App extends Component {
   
   render() {
     return (
-      <div>
-        <MapContainer 
+      <div className='container'>
+        <MapContainer
           venues={Venues.filter(venue=> venue.name.toLowerCase().includes(this.state.searchString.toLowerCase()))}
           selectedVenue={this.state.selectedVenue}
         />
