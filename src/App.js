@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import GoogleMap from './GoogleMap';
+import MapContainer from './MapContainer';
 
 class App extends Component {
 
@@ -15,13 +15,11 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
-        <GoogleMap venues = {this.state.locations.filter(venue => {
-          if (venue.name.toLowerCase().includes(this.state.searchString)) {
-            return venue;
-          }
-        })}/>
-      </div>
+      <div>
+        <MapContainer 
+          venues={this.state.locations}
+        />
+      </div>    
     );
   }
 }
