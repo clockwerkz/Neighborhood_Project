@@ -13,7 +13,7 @@ export class MapContainer extends Component {
       selectedPlace : props,
       activeMarker : marker,
       showingInfoWindow : true  
-    });
+    }); 
 
     onMapClicked = (props) => {
         if(this.state.showingInfoWindow) {
@@ -39,6 +39,7 @@ export class MapContainer extends Component {
                     onClick={this.onMarkerClick}
                     name={venue.name}
                     position={venue.position}
+                    animation={(this.props.selectedVenue === venue.name ?  this.props.google.maps.Animation.BOUNCE : null)}
                     />
                 })}
                 <InfoWindow 
