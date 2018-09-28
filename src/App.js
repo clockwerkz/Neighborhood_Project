@@ -16,7 +16,8 @@ class App extends Component {
   }
 
   changeSelectedVenue = (selectedVenue)=> {
-    this.setState({selectedVenue})
+    this.setState({ selectedVenue });
+    console.log(this.state.selectedVenue);
   }
 
   
@@ -24,17 +25,20 @@ class App extends Component {
     return (
       <div className='container'>
         <VenueList 
-          venueNames = {Venues.filter(venue=> { if (venue.name.toLowerCase().includes(this.state.searchString.toLowerCase()))
-          {
-            return venue.name;
-          }})}
+          venueNames = {Venues.filter(venue=> venue.name.toLowerCase().includes(this.state.searchString.toLowerCase()))}
           changeSearchString = {this.changeSearchString}
           changeSelectedVenue = {this.changeSelectedVenue}
           selectedVenue = {this.state.selectedVenue}
         />
 
         <MapContainer
-          venues={Venues.filter(venue=> venue.name.toLowerCase().includes(this.state.searchString.toLowerCase()))}
+          changeSelectedVenue = {this.changeSelectedVenue}
+          venues={Venues.filter(venue=> {
+            if (venue.name.toLowerCase().includes(this.state.searchString.toLowerCase())) 
+            {
+              return venue;
+            }
+          })}
           selectedVenue={this.state.selectedVenue}
         />
       </div>    
