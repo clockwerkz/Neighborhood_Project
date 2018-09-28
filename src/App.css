@@ -1,0 +1,28 @@
+.venue-list {
+    position:absolute;
+    height: 100vh;
+    width: 25%;
+    background-color: #eee;
+    z-index: 10;
+}
+
+.venue-list input {
+    display: block;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    padding: 3px;
+    color: #aaa;
+}
+
+.venue-list ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 1.3rem;
+    list-style: none;
+}
+
+.selected-venue {
+    color: #eee;
+    background-color: #222;
+}

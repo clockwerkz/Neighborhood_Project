@@ -29,11 +29,11 @@ export class MapContainer extends Component {
             <div className="map-container">
                 <Map google={this.props.google} 
                         initialCenter={{
-                            lat : 25.7617,
-                            lng : -80.1918 
+                            lat : 25.75,
+                            lng : -80.28 
                         }}
                         onClick={this.onMapClicked}
-                        zoom={13}>
+                        zoom={12}>
                     {this.props.venues.map((venue, index) => {
                         return <Marker 
                         key={index}
