@@ -17,7 +17,6 @@ class App extends Component {
 
   changeSelectedVenue = (selectedVenue)=> {
     this.setState({ selectedVenue });
-    console.log(this.state.selectedVenue);
   }
 
   
