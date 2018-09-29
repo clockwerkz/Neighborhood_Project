@@ -33,9 +33,13 @@ class App extends Component {
         <MapContainer
           changeSelectedVenue = {this.changeSelectedVenue}
           venues={Venues.filter(venue=> {
-            if (venue.name.toLowerCase().includes(this.state.searchString.toLowerCase())) 
-            {
-              return venue;
+            if (this.state.selectedVenue) {
+              if (this.state.selectedVenue === venue.name) return venue;
+            } else {
+              if (venue.name.toLowerCase().includes(this.state.searchString.toLowerCase())) 
+              {
+                return venue;
+              }
             }
           })}
           selectedVenue={this.state.selectedVenue}
