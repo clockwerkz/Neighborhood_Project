@@ -6,15 +6,26 @@ export class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker : {},
-        selectedPlace : {},
+        selectedPlace : {
+            name : '',
+            location: ''
+        },
+    }
+
+    displayVenueData = (selectedVenue, marker) => {
+     /* Add function here */
+    }
+
+    grabVenueData = (venue='Versailles', lat, lng, marker) => {
+        fetch(`https://api.foursquare.com/v2/venues/search?client_id=NV0BJPN1WVI0ZR3D31GNBQNNIASD0ZZ3L42TIST2NAP0WPJ3
+&client_secret=WHNEFU1Z01MST0YBQIHPJGAY1TABNV42JIQRPZE4JFTQVTOQ&v=20180323&query=${venue}&limit=5&near=Miami,Fl`)
+    .then(res => res.json())
+    .then(data => this.displayVenueData(data.response.venues[0], marker));
     }
 
     onMarkerClick = (props, marker, e) => {
-        this.setState({
-            selectedPlace : props,
-            activeMarker : marker,
-            showingInfoWindow : true
-        });
+        this.grabVenueData(marker.name, marker.position.lat, marker.position.lng, marker);
+        
     } 
 
     onMapClicked = (props) => {
@@ -38,7 +49,7 @@ export class MapContainer extends Component {
                         zoom={12}>
                     {this.props.venues.map((venue, index) => {
                         return <Marker 
-                        key={index}
+                        key={index+1}
                         onClick={this.onMarkerClick}
                         name={venue.name}
                         position={venue.position}
@@ -50,7 +61,14 @@ export class MapContainer extends Component {
                         visible={this.state.showingInfoWindow}
                         onClose={this.onInfoWindowClose}>
                         <div>
-                            <h1>{this.state.selectedPlace.name}</h1>
+                            <h1>{this.state.selectedPlace && this.state.selectedPlace.name}</h1>
+                            <p>{this.state.selectedPlace && this.state.selectedPlace.location.address}</p>
+                            <p>
+                                <span>{this.state.selectedPlace && this.state.selectedPlace.location.city+', '}</span>
+                                <span>{this.state.selectedPlace && this.state.selectedPlace.location.state+' '}</span>
+                                <span>{this.state.selectedPlace && this.state.selectedPlace.location.postalCode}</span>
+                            </p>
+                            
                         </div>
                     </InfoWindow>
                 </Map>
