@@ -13,10 +13,15 @@ export class MapContainer extends Component {
     }
 
     displayVenueData = (selectedVenue, marker) => {
-     /* Add function here */
+        console.log(selectedVenue);
+        this.setState({
+            showingInfoWindow : true,
+            activeMarker : marker,
+            selectedPlace : selectedVenue
+        });
     }
 
-    grabVenueData = (venue='Versailles', lat, lng, marker) => {
+    grabVenueData = (venue='Versailles', marker) => {
         fetch(`https://api.foursquare.com/v2/venues/search?client_id=NV0BJPN1WVI0ZR3D31GNBQNNIASD0ZZ3L42TIST2NAP0WPJ3
 &client_secret=WHNEFU1Z01MST0YBQIHPJGAY1TABNV42JIQRPZE4JFTQVTOQ&v=20180323&query=${venue}&limit=5&near=Miami,Fl`)
     .then(res => res.json())
@@ -24,7 +29,7 @@ export class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
-        this.grabVenueData(marker.name, marker.position.lat, marker.position.lng, marker);
+        this.grabVenueData(marker.name, marker);
         
     } 
 
