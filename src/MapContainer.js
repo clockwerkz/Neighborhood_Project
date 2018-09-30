@@ -23,7 +23,7 @@ export class MapContainer extends Component {
 
     grabVenueData = (venue='Versailles', marker) => {
         fetch(`https://api.foursquare.com/v2/venues/search?client_id=NV0BJPN1WVI0ZR3D31GNBQNNIASD0ZZ3L42TIST2NAP0WPJ3
-&client_secret=WHNEFU1Z01MST0YBQIHPJGAY1TABNV42JIQRPZE4JFTQVTOQ&v=20180323&query=${venue}&limit=5&near=Miami,Fl`)
+&client_secret=WHNEFU1Z01MST0YBQIHPJGAY1TABNV42JIQRPZE4JFTQVTOQ&v=20180323&query=${venue}&limit=1&near=Miami,Fl`)
     .then(res => res.json())
     .then(data => this.displayVenueData(data.response.venues[0], marker));
     }
@@ -51,7 +51,9 @@ export class MapContainer extends Component {
                             lng : -80.28 
                         }}
                         onClick={this.onMapClicked}
-                        zoom={12}>
+                        zoom={12}
+                        style={{position: 'relative', width: '100%', height: '100%'}}
+                        >
                     {this.props.venues.map((venue, index) => {
                         return <Marker 
                         key={index+1}

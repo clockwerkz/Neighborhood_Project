@@ -7,11 +7,13 @@
 }
 
 .venue-list input {
+    box-sizing: border-box;
     display: block;
     margin: 0 auto;
     font-size: 1.3rem;
     padding: 3px;
     color: #aaa;
+    width: 100%;
 }
 
 .venue-list ul {
@@ -25,4 +27,33 @@
 .selected-venue {
     color: #eee;
     background-color: #222;
+}
+
+.map-container {
+    position: absolute;
+    width: 75%;
+    height: 100vh;
+    left: 25%;
+}
+
+@media only screen and (max-width: 650px) {
+    .venue-list input, .venue-list ul {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .venue-list input, .venue-list ul {
+        font-size: .8rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .venue-list {
+        left: -25%;
+    }
+    .map-container {
+        left: 0;
+        width: 100%;
+    }
 }
