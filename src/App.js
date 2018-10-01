@@ -11,6 +11,12 @@ class App extends Component {
     selectedVenue : ''
   }
 
+  componentDidMount() {
+    window.gm_authFailure = () => {
+      console.log("There was an error with Google Maps");
+    }
+  }
+
   changeSearchString = (searchString)=> {
     this.setState({ searchString })
   }
