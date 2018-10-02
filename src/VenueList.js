@@ -3,7 +3,14 @@ import React, { Component } from 'react';
 class VenueList extends Component {
 
     state = {
-        displayMenu : false
+        displayMenu : false,
+        selectedVenue : ''
+    }
+
+
+
+    updateVenue = (selectedVenue) => {
+        this.setState({ selectedVenue });
     }
 
     displayVenueList = () => {
@@ -29,13 +36,18 @@ class VenueList extends Component {
                         />
                     <ul>
                         {this.props.venueNames.map((venue, index)=> <li 
-                            onClick={(e)=>this.props.changeSelectedVenue(e.target.textContent)} 
+                            onClick={(e)=>{
+                                this.updateVenue(e.target.textContent);
+                                this.props.changeSelectedVenue(e.target.textContent);
+                                }} 
                             onFocus={(e)=>this.props.changeSelectedVenue(e.target.textContent)}
                             onBlur={(e)=>this.props.changeSelectedVenue(null)}
                             key={index} 
                             className={(this.props.selectedVenue === venue.name ? 'selected-venue' : '')} 
                             tabIndex={0}
-                            >{venue.name}</li>)}
+                            >{venue.name}
+                            {this.state.selectedVenue === venue.name ? (<p>Selected Venue</p>):('')}
+                            </li>)}
                     </ul>
                 </div>
             </div>

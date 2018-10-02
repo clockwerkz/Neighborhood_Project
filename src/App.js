@@ -8,12 +8,13 @@ class App extends Component {
 
   state = {
     searchString : '',
-    selectedVenue : ''
+    selectedVenue : '',
+    mapError : false
   }
 
   componentDidMount() {
     window.gm_authFailure = () => {
-      console.log("There was an error with Google Maps");
+      this.setState({mapError : true});
     }
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
           selectedVenue = {this.state.selectedVenue}
         />
 
-        <MapContainer
+        {this.state.mapError ?(<div className="map-error"><p>There was an error loading the Map</p></div>) :(<MapContainer
           changeSelectedVenue = {this.changeSelectedVenue}
           venues={Venues.filter(venue=> {
             if (this.state.selectedVenue) {
@@ -49,7 +50,7 @@ class App extends Component {
             }
           })}
           selectedVenue={this.state.selectedVenue}
-        />
+        />)}
       </div>    
     );
   }

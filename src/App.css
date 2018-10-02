@@ -51,6 +51,15 @@
     left: 25%;
 }
 
+.map-error p {
+    width: 200px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
 @media only screen and (max-width: 650px) {
     .venue-list input, .venue-list ul {
         font-size: 1rem;
