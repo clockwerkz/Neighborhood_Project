@@ -4,13 +4,31 @@ class VenueList extends Component {
 
     state = {
         displayMenu : false,
-        selectedVenue : ''
+        selectedVenue : '',
+        fetchError : false,
+        selectedPlace : ''
     }
 
+    displayVenueData = (selectedVenue) => {
+        console.log(selectedVenue);
+        this.setState({
+            selectedPlace : selectedVenue
+        });
+    }
+
+    grabVenueData = (venue='Versailles') => {
+        fetch(`https://api.foursquare.com/v2/venues/search?client_id=NV0BJPN1WVI0ZR3D31GNBQNNIASD0ZZ3L42TIST2NAP0WPJ3
+&client_secret=WHNEFU1Z01MST0YBQIHPJGAY1TABNV42JIQRPZE4JFTQVTOQ&v=20180323&query=${venue}&limit=1&near=Miami,Fl`)
+    .then(res => res.json())
+    .then(data => this.displayVenueData(data.response.venues[0]))
+    .catch(err => this.setState({ fetchError : true }));
+    }
 
 
     updateVenue = (selectedVenue) => {
         this.setState({ selectedVenue });
+        this.props.changeSelectedVenue(selectedVenue);
+        this.grabVenueData(selectedVenue);
     }
 
     displayVenueList = () => {
@@ -36,17 +54,23 @@ class VenueList extends Component {
                         />
                     <ul>
                         {this.props.venueNames.map((venue, index)=> <li 
-                            onClick={(e)=>{
-                                this.updateVenue(e.target.textContent);
-                                this.props.changeSelectedVenue(e.target.textContent);
-                                }} 
-                            onFocus={(e)=>this.props.changeSelectedVenue(e.target.textContent)}
-                            onBlur={(e)=>this.props.changeSelectedVenue(null)}
+                            onClick={(e)=>this.updateVenue(e.target.textContent)} 
+                            onFocus={(e)=>this.updateVenue(e.target.textContent)} 
+                            onBlur={(e)=>this.updateVenue(null)} 
                             key={index} 
                             className={(this.props.selectedVenue === venue.name ? 'selected-venue' : '')} 
                             tabIndex={0}
                             >{venue.name}
-                            {this.state.selectedVenue === venue.name ? (<p>Selected Venue</p>):('')}
+                            {this.state.selectedVenue === venue.name ? this.state.fetchError ? (<p style={{fontSize: '.8rem', textAlign : 'center'}}>Error has occured fetching data</p>) : (
+                                <div className='venue-list-select'>
+                                    <p>{this.state.selectedPlace && this.state.selectedPlace.location.address}</p>
+                                    <p>
+                                        <span>{this.state.selectedPlace && this.state.selectedPlace.location.city+', '}</span>
+                                        <span>{this.state.selectedPlace && this.state.selectedPlace.location.state+' '}</span>
+                                        <span>{this.state.selectedPlace && this.state.selectedPlace.location.postalCode}</span>
+                                    </p>  
+                                </div>
+                                ):('')}
                             </li>)}
                     </ul>
                 </div>

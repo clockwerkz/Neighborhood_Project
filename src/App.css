@@ -37,11 +37,16 @@
 
 .venue-list ul li {
     padding: 5px 0;
+    border: 1px solid #F0CC87;
 }
 
-.selected-venue {
+.venue-list-select {
+    font-size: .8rem;
+}
+
+li.selected-venue {
     color: #eee;
-    background-color: #332917;
+    background-color: #382c16;
 }
 
 .map-container {
